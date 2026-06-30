@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Shield, Smartphone } from "lucide-react";
 import { FaApple, FaGooglePlay, FaGithub } from "react-icons/fa";
+import { statusConfig } from "../data/projects";
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -50,12 +51,14 @@ export default function ProjectModal({ project, onClose }) {
               >
                 <X size={18} />
               </button>
-              {project.confidential && (
-                <span className="absolute top-4 left-4 flex items-center gap-1 px-2.5 py-1 rounded-full bg-bg/80 text-xs text-text-muted">
-                  <Shield size={12} />
-                  Client Project
-                </span>
-              )}
+              <span className="absolute top-4 left-4 text-xs px-2.5 py-1 rounded-full bg-bg/80 text-text-muted">
+                {project.company}
+              </span>
+              <span
+                className={`absolute top-4 right-12 text-xs px-2.5 py-1 rounded-full ${statusConfig[project.status].color}`}
+              >
+                {statusConfig[project.status].label}
+              </span>
             </div>
 
             <div className="p-7">
@@ -69,14 +72,6 @@ export default function ProjectModal({ project, onClose }) {
               <p className="text-text-muted leading-relaxed mb-6">
                 {project.description}
               </p>
-
-              {project.confidential && (
-                <p className="text-text-dim text-xs mb-6 border-l-2 border-border pl-3">
-                  This project was developed during a professional
-                  engagement. Specific client details are withheld per
-                  confidentiality agreements.
-                </p>
-              )}
 
               <div className="mb-6">
                 <p className="text-xs text-text-dim uppercase tracking-wide mb-2">

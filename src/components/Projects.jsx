@@ -4,6 +4,7 @@ import { ExternalLink, Shield, Smartphone, Eye } from "lucide-react";
 import { FaApple, FaGooglePlay, FaGithub } from "react-icons/fa";
 import { projects, projectCategories } from "../data/projects";
 import ProjectModal from "./ProjectModal";
+import { statusConfig } from "../data/projects";
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -83,12 +84,14 @@ export default function Projects() {
                       <Eye size={13} /> View Details
                     </span>
                   </div>
-                  {project.confidential && (
-                    <span className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-bg/80 text-xs text-text-muted">
-                      <Shield size={12} />
-                      Client Project
+                    <span className="absolute top-3 left-3 text-xs px-2.5 py-1 rounded-full bg-bg/80 text-text-muted">
+                      {project.company}
                     </span>
-                  )}
+                    <span
+                      className={`absolute top-3 right-3 text-xs px-2.5 py-1 rounded-full ${statusConfig[project.status].color}`}
+                    >
+                      {statusConfig[project.status].label}
+                    </span>
                 </div>
 
                 <div className="p-6 flex flex-col flex-1">
