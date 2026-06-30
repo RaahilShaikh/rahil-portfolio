@@ -103,6 +103,16 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick("#contact");
+                }}
+                className="mt-2 text-center px-3 py-3 rounded-lg bg-primary text-white font-medium"
+              >
+                Hire Me
+              </a>
             </div>
           </motion.div>
         )}

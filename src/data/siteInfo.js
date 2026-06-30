@@ -5,12 +5,12 @@
 
 export const siteInfo = {
   name: "Rahil Shaikh",
-  shortName: "Raahil",
+  shortName: "Rahil",
   role: "Senior Flutter Developer & n8n Automation Specialist",
   tagline: "Building Fast, Scalable Mobile Apps & Smart Automations",
   location: "Surat, Gujarat, India",
-  email: "your-email@example.com", // TODO: replace with real email
-  resumeUrl: "/resume.pdf", // TODO: add resume file to public/ folder
+  email: "rahils416@gmail.com",
+  resumeUrl: "/Rahil_Shaikh_CV.pdf",
 
   // SEO
   metaTitle: "Rahil Shaikh | Senior Flutter Developer & n8n Automation Expert in Surat",
@@ -49,8 +49,8 @@ export const siteInfo = {
   social: {
     linkedin: "https://www.linkedin.com/in/raahilshaikh/",
     github: "https://github.com/RaahilShaikh",
-    upwork: "", // TODO: add your Upwork profile URL
+    upwork: "https://www.upwork.com/freelancers/~01da3d85c6fff7a8df?mp_source=share",
     fiverr: "", // TODO: add your Fiverr profile URL
-    instagram: "https://www.instagram.com/raahil_shaikh_/",
+    instagram: "",
   },
 };

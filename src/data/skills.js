@@ -8,7 +8,6 @@ export const skills = [
   { name: "Dart", category: "mobile", level: 95 },
   { name: "GetX", category: "mobile", level: 90 },
   { name: "Riverpod", category: "mobile", level: 85 },
-  { name: "Swift (iOS Native)", category: "mobile", level: 75 },
   { name: "Firebase", category: "backend", level: 90 },
   { name: "REST APIs", category: "backend", level: 90 },
   { name: "Razorpay", category: "backend", level: 85 },
@@ -22,6 +21,7 @@ export const skills = [
 ];
 
 export const expertiseTags = [
+  "Mobile Application Development",
   "Cross-Platform Development",
   "State Management",
   "App Store Deployment",
