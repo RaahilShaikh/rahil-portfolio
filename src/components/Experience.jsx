@@ -18,6 +18,9 @@ export default function Experience() {
           <h2 className="font-display text-3xl sm:text-4xl font-bold mt-3 mb-12">
             Where I've Worked
           </h2>
+          <p className="text-text-muted mb-12">
+            5+ years building production mobile apps with Flutter, plus 1+ year designing automation workflows with n8n.
+          </p>
         </motion.div>
 
         <div className="relative pl-8 border-l border-border space-y-10 mb-16">

@@ -1,8 +1,20 @@
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Shield, Smartphone } from "lucide-react";
 import { FaApple, FaGooglePlay, FaGithub } from "react-icons/fa";
 
 export default function ProjectModal({ project, onClose }) {
+  useEffect(() => {
+    if (project) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [project]);
+
   return (
     <AnimatePresence>
       {project && (
