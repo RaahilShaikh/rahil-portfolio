@@ -10,10 +10,11 @@ export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
 
-  const filtered =
+  const filtered = (
     activeCategory === "All"
       ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      : projects.filter((p) => p.category === activeCategory)
+  ).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
   return (
     <section id="projects" className="py-28 px-6 bg-bg-secondary/40">
@@ -92,6 +93,11 @@ export default function Projects() {
                     >
                       {statusConfig[project.status].label}
                     </span>
+                    {project.featured && (
+                    <span className="absolute bottom-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/15 text-amber-400 text-xs font-medium">
+                      ⭐ Featured
+                    </span>
+                  )}
                 </div>
 
                 <div className="p-6 flex flex-col flex-1">

@@ -41,9 +41,9 @@ export const siteInfo = {
 
   stats: [
     { label: "Years of Experience", value: "5+" },
-    { label: "Projects Delivered", value: "10+" },
-    { label: "Happy Clients", value: "8+" },
-    { label: "Apps on Store", value: "6+" },
+    { label: "Projects Delivered", value: "20+" },
+    { label: "Happy Clients", value: "15+" },
+    { label: "Apps on Store", value: "10+" },
   ],
 
   social: {
