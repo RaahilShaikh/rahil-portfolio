@@ -43,7 +43,7 @@ export default function Navbar() {
           }}
           className="font-display text-xl font-bold tracking-tight"
         >
-          Rahil<span className="gradient-text">.dev</span>
+          Rahil <span className="gradient-text">Shaikh</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
