@@ -39,7 +39,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 gap-3 auto-rows-min"
+            className="grid grid-cols-2 gap-3 auto-rows-fr"
           >
             {siteInfo.stats.map((stat) => (
               <div
