@@ -39,13 +39,13 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 gap-3 auto-rows-fr"
+            className="grid grid-cols-2 gap-3 auto-rows-min"
           >
             {siteInfo.stats.map((stat) => (
               <div
                 key={stat.label}
-                className="glass rounded-2xl p-3 text-center glow-on-hover"
-              >
+                    className="glass rounded-2xl p-3 text-center glow-on-hover h-[90px] flex flex-col items-center justify-center"
+                  >
                 <div className="font-display text-xl font-bold gradient-text mb-1 leading-none">
                   {stat.value}
                 </div>
