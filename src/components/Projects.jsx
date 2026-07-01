@@ -32,9 +32,8 @@ export default function Projects() {
             Apps I've Built & Shipped
           </h2>
           <p className="text-text-muted max-w-2xl mb-4">
-            A mix of personal builds and professional engagements. For
-            client-confidential work, names are withheld per NDA but the
-            technical scope and my role are shown.
+           A mix of professional work and personal builds — from apps live
+           on the Play Store to internal tools and MVPs shipped for real businesses.
           </p>
         </motion.div>
 
