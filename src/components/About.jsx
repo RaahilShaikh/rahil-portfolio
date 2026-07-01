@@ -44,12 +44,14 @@ export default function About() {
             {siteInfo.stats.map((stat) => (
               <div
                 key={stat.label}
-                className="glass rounded-2xl p-5 text-center glow-on-hover"
+                className="glass rounded-2xl p-4 text-center glow-on-hover flex flex-col items-center justify-center min-h-[100px]"
               >
-                <div className="font-display text-3xl font-bold gradient-text mb-1">
+                <div className="font-display text-2xl font-bold gradient-text mb-1 leading-none">
                   {stat.value}
                 </div>
-                <div className="text-text-dim text-xs">{stat.label}</div>
+                <div className="text-text-dim text-[11px] leading-tight mt-1">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </motion.div>
