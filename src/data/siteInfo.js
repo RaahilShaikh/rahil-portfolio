@@ -6,8 +6,8 @@
 export const siteInfo = {
   name: "Rahil Shaikh",
   shortName: "Rahil",
-  role: "Senior Flutter Developer & n8n Automation Specialist",
-  tagline: "Building Fast, Scalable Mobile Apps & Smart Automations",
+  role: "Flutter Developer & n8n Automation Specialist",
+  tagline: "Building production mobile apps & smart automations for businesses that ship.",
   location: "Surat, Gujarat, India",
   email: "rahils416@gmail.com",
   resumeUrl: "/Rahil_Shaikh_CV.pdf",
@@ -32,18 +32,20 @@ export const siteInfo = {
   about: {
     headline: "Turning Ideas Into Production-Ready Mobile Apps",
     paragraphs: [
-      "I'm a Senior Flutter Developer and Team Lead with 5+ years of hands-on experience building and shipping mobile applications for startups and growing businesses. I currently lead mobile development at Griphhy, where I architect and deliver cross-platform apps used by real users on both the Play Store and App Store.",
-      "My foundation started with native iOS development at White Orange Software, which gave me a deep understanding of platform-level behavior — something that still shapes how I build performant Flutter apps today. Over the years I've worked across e-commerce, fintech, productivity, and service-based apps, handling everything from architecture decisions to deployment.",
-      "In the past year, I've expanded into n8n workflow automation — building lead-generation systems, data pipelines, and AI-powered automation flows that help businesses save hours of manual work. I bring the same problem-solving approach from app development into automation: clean architecture first, reliable execution always.",
-      "I hold an MCA from Sarvajanik College of Engineering & Technology and a BCA from Uka Tarsadia University. When I'm not coding, I run a fitness content brand on Instagram — discipline shows up in my code the same way it does in the gym.",
+      "I'm a Flutter Developer and n8n Automation Specialist with 5+ years of experience building mobile apps that actually ship — not just prototypes, but production-ready products live on the Play Store and App Store.",
+      "Before going independent, I spent years building cross-platform apps at agencies and product companies, working across fintech, e-commerce, logistics, and community platforms. I've handled everything from architecture decisions on day one to submitting the final build to the stores — so I know what it takes to get a product from idea to users' hands.",
+      "My iOS background at White Orange Software gave me something most Flutter developers don't have: a real understanding of how apps behave at the platform level. That shows up in the performance, the stability, and the small details that make an app feel right.",
+      "In the last year, I've added n8n automation to what I offer — building systems that connect tools, automate repetitive workflows, and wire up AI to do real work. Same mindset as app development: clean logic, reliable output, no fluff.",
+      "I work with founders, product teams, and businesses who need someone who can think through a problem, not just write code. If you have something to build, I'd rather understand it properly first.",
     ],
   },
 
   stats: [
     { label: "Years of Experience", value: "5+" },
-    { label: "Projects Delivered", value: "20+" },
-    { label: "Happy Clients", value: "15+" },
-    { label: "Apps on Store", value: "10+" },
+    { label: "Client Satisfaction", value: "100%" },
+    { label: "Projects Delivered", value: "50+" },
+    { label: "Happy Clients", value: "35+" },
+    { label: "Apps on Store", value: "30+" },
   ],
 
   social: {
