@@ -13,9 +13,9 @@ export const siteInfo = {
   resumeUrl: "/Rahil_Shaikh_CV.pdf",
 
   // SEO
-  metaTitle: "Rahil Shaikh | Senior Flutter Developer & n8n Automation Expert in Surat",
+  metaTitle: "Rahil Shaikh | Flutter Developer & n8n Automation Expert in Surat",
   metaDescription:
-    "Rahil Shaikh is a Senior Flutter Developer with 5+ years of experience building production mobile apps for iOS & Android, plus 1+ year of n8n workflow automation. Available for freelance & full-time opportunities.",
+    "Rahil Shaikh is a Flutter Developer with 5+ years of experience building production mobile apps for iOS & Android, plus 1+ year of n8n workflow automation. Available for freelance & full-time opportunities.",
   keywords: [
     "Flutter Developer",
     "Flutter Developer Surat",
@@ -44,8 +44,9 @@ export const siteInfo = {
     { label: "Years of Experience", value: "5+" },
     { label: "Client Satisfaction", value: "100%" },
     { label: "Projects Delivered", value: "50+" },
-    { label: "Happy Clients", value: "35+" },
-    { label: "Apps on Store", value: "30+" },
+    { label: "Happy Clients", value: "50+" },
+    { label: "Apps on Store", value: "25+" },
+    { label: "n8n Workflows Built", value: "5+"},
   ],
 
   social: {

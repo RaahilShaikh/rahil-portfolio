@@ -19,7 +19,7 @@ export default function About() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-3 gap-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -39,7 +39,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 gap-3 content-start"
+            className="grid grid-cols-2 gap-4"
           >
             {siteInfo.stats.map((stat) => (
               <div
