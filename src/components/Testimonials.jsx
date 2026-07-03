@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Quote, Star } from "lucide-react";
+import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { FaLinkedinIn } from "react-icons/fa";
 import { SiUpwork } from "react-icons/si";
 import { testimonials } from "../data/testimonials";
@@ -30,11 +30,11 @@ function TestimonialCard({ t }) {
   const platform = platformConfig[t.platform];
   const Icon = platform.icon;
   return (
-    <div className="glass rounded-2xl p-6 flex flex-col w-[340px] shrink-0 mx-3">
-      <div className="flex items-center justify-between mb-3">
+    <div className="glass rounded-2xl p-6 flex flex-col h-full">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex gap-0.5">
           {[...Array(t.rating)].map((_, i) => (
-            <Star key={i} size={12} className="text-amber-400 fill-amber-400" />
+            <Star key={i} size={13} className="text-amber-400 fill-amber-400" />
           ))}
         </div>
         <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full ${platform.bg}`}>
@@ -44,12 +44,12 @@ function TestimonialCard({ t }) {
           </span>
         </div>
       </div>
-      <Quote size={18} className="text-primary/30 mb-2" />
-      <p className="text-text-muted text-sm leading-relaxed mb-5 flex-1 line-clamp-4">
+      <Quote size={20} className="text-primary/25 mb-3" />
+      <p className="text-text-muted text-sm leading-relaxed flex-1 mb-5">
         {t.text}
       </p>
-      <div className="flex items-center gap-3 pt-3 border-t border-border">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-xs font-bold text-white shrink-0">
+      <div className="flex items-center gap-3 pt-4 border-t border-border">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-xs font-bold text-white shrink-0">
           {t.name.charAt(0)}
         </div>
         <div>
@@ -61,31 +61,35 @@ function TestimonialCard({ t }) {
   );
 }
 
-function MarqueeRow({ items, reverse = false }) {
-  const doubled = [...items, ...items];
-  return (
-    <div className="overflow-hidden relative">
-      <div
-        className={`flex ${reverse ? "animate-marquee-reverse" : "animate-marquee"} hover:[animation-play-state:paused]`}
-      >
-        {doubled.map((t, i) => (
-          <TestimonialCard key={`${t.id}-${i}`} t={t} />
-        ))}
-      </div>
-    </div>
-  );
-}
+const CARDS_VISIBLE = 3;
+const AUTO_INTERVAL = 3500;
 
 export default function Testimonials() {
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef(null);
+  const total = testimonials.length;
+  const maxIndex = total - CARDS_VISIBLE;
+
+  const next = () => setCurrent((c) => (c >= maxIndex ? 0 : c + 1));
+  const prev = () => setCurrent((c) => (c <= 0 ? maxIndex : c - 1));
+
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setInterval(next, AUTO_INTERVAL);
+    return () => clearInterval(timerRef.current);
+  }, [paused, current]);
+
   if (!testimonials.length) return null;
 
-  const half = Math.ceil(testimonials.length / 2);
-  const row1 = testimonials.slice(0, half);
-  const row2 = testimonials.slice(half);
-
   return (
-    <section id="testimonials" className="py-28 overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6">
+    <section
+      id="testimonials"
+      className="py-28 bg-bg-secondary/40 overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -104,11 +108,67 @@ export default function Testimonials() {
             client feedback.
           </p>
         </motion.div>
-      </div>
 
-      <div className="space-y-4">
-        <MarqueeRow items={row1} reverse={false} />
-        <MarqueeRow items={row2} reverse={true} />
+        {/* Carousel */}
+        <div className="overflow-hidden">
+          <motion.div
+            className="flex gap-6"
+            animate={{ x: `calc(-${current} * (100% / ${CARDS_VISIBLE} + 8px))` }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            {testimonials.map((t) => (
+              <div
+                key={t.id}
+                className="shrink-0"
+                style={{ width: `calc(${100 / CARDS_VISIBLE}% - ${(16 * (CARDS_VISIBLE - 1)) / CARDS_VISIBLE}px)` }}
+              >
+                <TestimonialCard t={t} />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Controls */}
+        <div className="flex items-center justify-between mt-8">
+          {/* Arrows */}
+          <div className="flex gap-3">
+            <button
+              onClick={prev}
+              className="w-10 h-10 rounded-full glass flex items-center justify-center text-text-muted hover:text-text transition-colors"
+              aria-label="Previous"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={next}
+              className="w-10 h-10 rounded-full glass flex items-center justify-center text-text-muted hover:text-text transition-colors"
+              aria-label="Next"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+
+          {/* Dots */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`transition-all duration-300 rounded-full ${
+                  i === current
+                    ? "w-6 h-2 bg-primary"
+                    : "w-2 h-2 bg-border hover:bg-text-dim"
+                }`}
+                aria-label={`Go to ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Counter */}
+          <p className="text-text-dim text-sm">
+            {current + 1} – {Math.min(current + CARDS_VISIBLE, total)} / {total}
+          </p>
+        </div>
       </div>
     </section>
   );
