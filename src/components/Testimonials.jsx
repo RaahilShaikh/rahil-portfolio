@@ -62,7 +62,7 @@ function TestimonialCard({ t }) {
 }
 
 const CARDS_VISIBLE = 3;
-const AUTO_INTERVAL = 3500;
+const AUTO_INTERVAL = 3000;
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
@@ -75,10 +75,21 @@ export default function Testimonials() {
   const prev = () => setCurrent((c) => (c <= 0 ? maxIndex : c - 1));
 
   useEffect(() => {
-    if (paused) return;
+    if (paused) {
+      clearInterval(timerRef.current);
+      return;
+    }
     timerRef.current = setInterval(next, AUTO_INTERVAL);
     return () => clearInterval(timerRef.current);
-  }, [paused, current]);
+  }, [paused]);
+
+  const handleManualNav = (fn) => {
+    clearInterval(timerRef.current);
+    fn();
+    if (!paused) {
+      timerRef.current = setInterval(next, AUTO_INTERVAL);
+    }
+  };
 
   if (!testimonials.length) return null;
 
@@ -133,14 +144,14 @@ export default function Testimonials() {
           {/* Arrows */}
           <div className="flex gap-3">
             <button
-              onClick={prev}
+              onClick={() => handleManualNav(prev)}
               className="w-10 h-10 rounded-full glass flex items-center justify-center text-text-muted hover:text-text transition-colors"
               aria-label="Previous"
             >
               <ChevronLeft size={18} />
             </button>
             <button
-              onClick={next}
+              onClick={() => handleManualNav(next)}
               className="w-10 h-10 rounded-full glass flex items-center justify-center text-text-muted hover:text-text transition-colors"
               aria-label="Next"
             >
@@ -153,7 +164,7 @@ export default function Testimonials() {
             {Array.from({ length: maxIndex + 1 }).map((_, i) => (
               <button
                 key={i}
-                onClick={() => setCurrent(i)}
+                onClick={() => handleManualNav(() => setCurrent(i))}
                 className={`transition-all duration-300 rounded-full ${
                   i === current
                     ? "w-6 h-2 bg-primary"
