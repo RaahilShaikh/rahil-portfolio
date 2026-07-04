@@ -61,18 +61,31 @@ function TestimonialCard({ t }) {
   );
 }
 
-const CARDS_VISIBLE = 3;
-const AUTO_INTERVAL = 3000;
+const AUTO_INTERVAL = 5000;
+
+const getCardsVisible = () =>
+  typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 3;
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [cardsVisible, setCardsVisible] = useState(getCardsVisible);
   const timerRef = useRef(null);
+
   const total = testimonials.length;
-  const maxIndex = total - CARDS_VISIBLE;
+  const maxIndex = total - cardsVisible;
 
   const next = () => setCurrent((c) => (c >= maxIndex ? 0 : c + 1));
   const prev = () => setCurrent((c) => (c <= 0 ? maxIndex : c - 1));
+
+  useEffect(() => {
+    const onResize = () => {
+      setCardsVisible(getCardsVisible());
+      setCurrent(0);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     if (paused) {
@@ -81,7 +94,7 @@ export default function Testimonials() {
     }
     timerRef.current = setInterval(next, AUTO_INTERVAL);
     return () => clearInterval(timerRef.current);
-  }, [paused]);
+  }, [paused, maxIndex]);
 
   const handleManualNav = (fn) => {
     clearInterval(timerRef.current);
@@ -92,6 +105,10 @@ export default function Testimonials() {
   };
 
   if (!testimonials.length) return null;
+
+  const cardWidth = `calc(${100 / cardsVisible}% - ${
+    (24 * (cardsVisible - 1)) / cardsVisible
+  }px)`;
 
   return (
     <section
@@ -124,14 +141,16 @@ export default function Testimonials() {
         <div className="overflow-hidden">
           <motion.div
             className="flex gap-6"
-            animate={{ x: `calc(-${current} * (100% / ${CARDS_VISIBLE} + 8px))` }}
+            animate={{
+              x: `calc(-${current} * (${cardWidth} + 24px))`,
+            }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {testimonials.map((t) => (
               <div
                 key={t.id}
                 className="shrink-0"
-                style={{ width: `calc(${100 / CARDS_VISIBLE}% - ${(16 * (CARDS_VISIBLE - 1)) / CARDS_VISIBLE}px)` }}
+                style={{ width: cardWidth }}
               >
                 <TestimonialCard t={t} />
               </div>
@@ -141,7 +160,6 @@ export default function Testimonials() {
 
         {/* Controls */}
         <div className="flex items-center justify-between mt-8">
-          {/* Arrows */}
           <div className="flex gap-3">
             <button
               onClick={() => handleManualNav(prev)}
@@ -159,7 +177,6 @@ export default function Testimonials() {
             </button>
           </div>
 
-          {/* Dots */}
           <div className="flex items-center gap-2">
             {Array.from({ length: maxIndex + 1 }).map((_, i) => (
               <button
@@ -175,9 +192,9 @@ export default function Testimonials() {
             ))}
           </div>
 
-          {/* Counter */}
           <p className="text-text-dim text-sm">
-            {current + 1} – {Math.min(current + CARDS_VISIBLE, total)} / {total}
+            {current + 1} – {Math.min(current + cardsVisible, total)} /{" "}
+            {total}
           </p>
         </div>
       </div>
