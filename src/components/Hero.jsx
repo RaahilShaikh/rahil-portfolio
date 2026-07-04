@@ -32,7 +32,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6"
         >
-          Senior Flutter Developer
+          Flutter Developer
           <br />
           building <span className="gradient-text">mobile apps</span> &{" "}
           <span className="gradient-text">smart automations</span>

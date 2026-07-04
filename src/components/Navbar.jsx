@@ -43,7 +43,7 @@ export default function Navbar() {
           }}
           className="font-display text-xl font-bold tracking-tight"
         >
-          Rahil<span className="gradient-text">.dev</span>
+          Rahil <span className="gradient-text">Shaikh</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
@@ -103,6 +103,16 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick("#contact");
+                }}
+                className="mt-2 text-center px-3 py-3 rounded-lg bg-primary text-white font-medium"
+              >
+                Hire Me
+              </a>
             </div>
           </motion.div>
         )}

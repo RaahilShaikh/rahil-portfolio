@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Shield, Smartphone } from "lucide-react";
+import { ExternalLink, Shield, Smartphone, Eye } from "lucide-react";
 import { FaApple, FaGooglePlay, FaGithub } from "react-icons/fa";
 import { projects, projectCategories } from "../data/projects";
+import ProjectModal from "./ProjectModal";
+import { statusConfig } from "../data/projects";
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const filtered =
+  const filtered = (
     activeCategory === "All"
       ? projects
-      : projects.filter((p) => p.category === activeCategory);
+      : projects.filter((p) => p.category === activeCategory)
+  ).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 
   return (
     <section id="projects" className="py-28 px-6 bg-bg-secondary/40">
@@ -28,9 +32,8 @@ export default function Projects() {
             Apps I've Built & Shipped
           </h2>
           <p className="text-text-muted max-w-2xl mb-4">
-            A mix of personal builds and professional engagements. For
-            client-confidential work, names are withheld per NDA but the
-            technical scope and my role are shown.
+           A mix of professional work and personal builds — from apps live
+           on the Play Store to internal tools and MVPs shipped for real businesses.
           </p>
         </motion.div>
 
@@ -63,9 +66,10 @@ export default function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="glass rounded-2xl overflow-hidden glow-on-hover flex flex-col"
+                className="glass rounded-2xl overflow-hidden glow-on-hover flex flex-col cursor-pointer"
+                onClick={() => setSelectedProject(project)}
               >
-                <div className="h-44 bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center relative">
+                <div className="h-44 bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center relative group">
                   {project.image ? (
                     <img
                       src={project.image}
@@ -75,10 +79,22 @@ export default function Projects() {
                   ) : (
                     <Smartphone size={36} className="text-text-dim" />
                   )}
-                  {project.confidential && (
-                    <span className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-bg/80 text-xs text-text-muted">
-                      <Shield size={12} />
-                      Client Project
+                  <div className="absolute inset-0 bg-bg/0 group-hover:bg-bg/50 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <span className="flex items-center gap-1.5 text-xs text-text px-3 py-1.5 rounded-full glass">
+                      <Eye size={13} /> View Details
+                    </span>
+                  </div>
+                    <span className="absolute top-3 left-3 text-xs px-2.5 py-1 rounded-full bg-bg/80 text-text-muted">
+                      {project.company}
+                    </span>
+                    <span
+                      className={`absolute top-3 right-3 text-xs px-2.5 py-1 rounded-full ${statusConfig[project.status].color}`}
+                    >
+                      {statusConfig[project.status].label}
+                    </span>
+                    {project.featured && (
+                    <span className="absolute bottom-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/15 text-amber-400 text-xs font-medium">
+                      ⭐ Featured
                     </span>
                   )}
                 </div>
@@ -112,6 +128,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="View on Google Play Store"
+                        onClick={(e) => e.stopPropagation()}
                         className="text-text-muted hover:text-accent transition-colors"
                       >
                         <FaGooglePlay size={17} />
@@ -123,6 +140,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="View on Apple App Store"
+                        onClick={(e) => e.stopPropagation()}
                         className="text-text-muted hover:text-accent transition-colors"
                       >
                         <FaApple size={19} />
@@ -134,6 +152,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="View source on GitHub"
+                        onClick={(e) => e.stopPropagation()}
                         className="text-text-muted hover:text-accent transition-colors"
                       >
                         <FaGithub size={17} />
@@ -154,6 +173,11 @@ export default function Projects() {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }
